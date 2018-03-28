@@ -24,7 +24,7 @@ public class AbstractDAO<K,V> implements DAO<K,V> {
     public List<V> selectAll(Class<V> vClass) {
         entityManager.getTransaction().begin();
         String query = "FROM "+vClass.getSimpleName();
-        TypedQuery<V> quer = entityManager.createQuery(query,vClass);
+        TypedQuery<V> quer = entityManager.createQuery(query, vClass);
         List<V> arrayList = quer.getResultList();
         entityManager.getTransaction().commit();
         return arrayList;

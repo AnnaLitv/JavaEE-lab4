@@ -5,15 +5,18 @@ import entities.Goods;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean(name = "managedClass")
 @SessionScoped
 public class ManagedClass implements Serializable {
     AbstractDAO<Integer,Goods> gdao = new AbstractDAO<Integer, Goods>();
-    List<Goods> goods = gdao.selectAll(Goods.class);
-    List<Category> categories;
+    List<Goods> goods;
+    AbstractDAO<Integer,Category> cdao = new AbstractDAO<Integer, Category>();
+    List<Category> categories = cdao.selectAll(Category.class);
     Goods good;
+    int idcat;
     Category category;
 
     public ManagedClass(){
@@ -31,6 +34,14 @@ public class ManagedClass implements Serializable {
 
     public List<Category> getCategories() {
         return categories;
+    }
+
+    public int getIdcat() {
+        return idcat;
+    }
+
+    public void setIdcat(int idcat) {
+        this.idcat = idcat;
     }
 
     public void setCategories(List<Category> categories) {
@@ -54,24 +65,35 @@ public class ManagedClass implements Serializable {
     }
 
     public String editGoods(Goods good){
-        //AbstractDAO<Integer,Category> cdao = new AbstractDAO<Integer, Category>();
-        //Category cat = cdao.getByKey(Category.class,category.getIdcategory());
-        //good.setCategoryByIdcategory(cat);
-        gdao.update(good,good.getIdgoods());
+        good.setEditable(true);
         return null;
     }
 
-    public Category updateGoodWithCateg(int id){
+
+    public String saveGood(Goods good){
         AbstractDAO<Integer,Category> cdao = new AbstractDAO<Integer, Category>();
-        Category category = cdao.getByKey(Category.class,id);
-        return category;
+        Category cat = cdao.getByKey(Category.class,idcat);
+        good.setCategoryByIdcategory(cat);
+        gdao.update(good,good.getIdgoods());
+        saveAction();
+        return null;
     }
-//
-//    public String saveAction(){
-//        for (Goods good:goods) {
-//            good.setEditable(false);
-//        }
-//        return null;
-//    }
+
+    public void setGoodsByCat(Category cat){
+        goods = new ArrayList<Goods>();
+        for(Goods g:gdao.selectAll(Goods.class)){
+            if(g.getCategoryByIdcategory().getIdcategory()==cat.getIdcategory()){
+                goods.add(g);
+            }
+        }
+        idcat = cat.getIdcategory();
+    }
+
+    public String saveAction(){
+        for (Goods good:goods) {
+            good.setEditable(false);
+        }
+        return null;
+    }
 
 }

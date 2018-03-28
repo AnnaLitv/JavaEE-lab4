@@ -13,6 +13,9 @@ public class Goods {
     private String img;
     private Category categoryByIdcategory;
 
+    @Transient
+    private boolean editable;
+
     public Goods(){}
     public Goods(String name, Integer code, Integer weight, Integer price, Integer quantity, Category idCategory, String img) {
         this.setName(name);
@@ -125,7 +128,7 @@ public class Goods {
         return result;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idcategory", referencedColumnName = "idcategory", nullable = false)
     public Category getCategoryByIdcategory() {
         return categoryByIdcategory;
@@ -133,5 +136,15 @@ public class Goods {
 
     public void setCategoryByIdcategory(Category categoryByIdcategory) {
         this.categoryByIdcategory = categoryByIdcategory;
+    }
+
+    @Transient
+    public boolean isEditable() {
+        return editable;
+    }
+
+    @Transient
+    public void setEditable(boolean editable) {
+        this.editable = editable;
     }
 }

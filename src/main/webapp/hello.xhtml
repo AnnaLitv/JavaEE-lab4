@@ -9,63 +9,73 @@
     <title>Products</title>
 </h:head>
 <h:body>
+    <h:form>
+        <h:dataTable value="#{managedClass.categories}" var="category">
+            <h:column>
+                <h:commandLink value="#{category.name}" actionListener="#{managedClass.setGoodsByCat(category)}">
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </h:form>
     <h:form >
         <h:dataTable value = "#{managedClass.goods}" var = "good">
 
             <h:column>
                 <f:facet name = "header">Name</f:facet>
                 <h:inputText value = "#{good.name}"
-                             size = "10" rendered = "true" />
-                <h:outputText value="#{good.name}" rendered="false"/>
+                             size = "10" rendered = "#{good.editable}" />
+                <h:outputText value="#{good.name}" rendered="#{not good.editable}"/>
 
             </h:column>
 
             <h:column>
                 <f:facet name = "header">Code</f:facet>
                 <h:inputText value = "#{good.code}"
-                             size = "10" rendered = "true" />
-                <h:outputText value="#{good.code}" rendered="false"/>
+                             size = "10" rendered = "#{good.editable}" />
+                <h:outputText value="#{good.code}" rendered="#{not good.editable}"/>
 
             </h:column>
 
             <h:column>
                 <f:facet name = "header">Weight</f:facet>
                 <h:inputText value = "#{good.weight}" size = "5"
-                             rendered = "true" />
-                <h:outputText value="#{good.weight}" rendered="false"/>
+                             rendered = "#{good.editable}" />
+                <h:outputText value="#{good.weight}" rendered="#{not good.editable}"/>
 
             </h:column>
 
             <h:column>
                 <f:facet name = "header">Price</f:facet>
                 <h:inputText value = "#{good.price}"
-                             size = "5" rendered = "true" />
-                <h:outputText value="#{good.price}" rendered="false"/>
+                             size = "5" rendered = "#{good.editable}" />
+                <h:outputText value="#{good.price}" rendered="#{not good.editable}"/>
 
             </h:column>
             <h:column>
                 <f:facet name = "header">Category</f:facet>
-                <h:inputText value = "#{good.categoryByIdcategory.idcategory}"
-                             size = "5" rendered = "true" />
-                <h:outputText value="#{good.categoryByIdcategory.idcategory}" rendered="false"/>
-
+                <h:inputText value = "#{managedClass.idcat}"
+                             size = "5" rendered = "#{good.editable}" />
+                <h:outputText value="#{good.categoryByIdcategory.idcategory}" rendered="#{not good.editable}"/>
             </h:column>
 
             <h:column>
             <f:facet name = "header">Image</f:facet>
             <h:inputText value = "#{good.img}"
-                         size = "5" rendered = "true" />
-            <h:outputText value="#{good.img}" rendered="false"/>
+                         size = "5" rendered = "#{good.editable}" />
+            <h:outputText value="#{good.img}" rendered="#{not good.editable}"/>
             </h:column>
 
-            <h:column>
-                <img src="#{good.img}" alt=""></img>
-            </h:column>
+            <!--<h:column>-->
+                <!--<img src="#{good.img}" alt=""></img>-->
+            <!--</h:column>-->
 
             <h:column>
                 <f:facet name = "header">Action</f:facet>
                 <h:commandButton value = "Edit"
-                                 action = "#{managedClass.editGoods(good)}">
+                                 action = "#{managedClass.editGoods(good)}"
+                rendered="#{not good.editable}">
+                </h:commandButton>
+                <h:commandButton value="Save" action="#{managedClass.saveGood(good)}" rendered="#{good.editable}">
                 </h:commandButton>
             </h:column>
         </h:dataTable>
