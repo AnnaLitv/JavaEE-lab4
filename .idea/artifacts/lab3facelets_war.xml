@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lab3facelets:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="lab3-facelets.war">
+      <element id="artifact" artifact-name="lab3facelets:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Products</title>
+</h:head>
+<h:body>
+    <h:form >
+        <h:dataTable value = "#{managedClass.goods}" var = "good">
+
+            <h:column>
+                <f:facet name = "header">Name</f:facet>
+                <h:inputText value = "#{good.name}"
+                             size = "10" rendered = "true" />
+                <h:outputText value="#{good.name}" rendered="false"/>
+
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">Code</f:facet>
+                <h:inputText value = "#{good.code}"
+                             size = "10" rendered = "true" />
+                <h:outputText value="#{good.code}" rendered="false"/>
+
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">Weight</f:facet>
+                <h:inputText value = "#{good.weight}" size = "5"
+                             rendered = "true" />
+                <h:outputText value="#{good.weight}" rendered="false"/>
+
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">Price</f:facet>
+                <h:inputText value = "#{good.price}"
+                             size = "5" rendered = "true" />
+                <h:outputText value="#{good.price}" rendered="false"/>
+
+            </h:column>
+            <h:column>
+                <f:facet name = "header">Category</f:facet>
+                <h:inputText value = "#{good.categoryByIdcategory.idcategory}"
+                             size = "5" rendered = "true" />
+                <h:outputText value="#{managedClass.category.idcategory}" rendered="false"/>
+
+            </h:column>
+
+            <h:column>
+            <f:facet name = "header">Image</f:facet>
+            <h:inputText value = "#{good.img}"
+                         size = "5" rendered = "true" />
+            <h:outputText value="#{good.img}" rendered="false"/>
+            </h:column>
+
+            <h:column>
+                <img src="#{good.img}" alt=""></img>
+            </h:column>
+
+            <h:column>
+                <f:facet name = "header">Action</f:facet>
+                <h:commandButton value = "Edit"
+                                 action = "#{managedClass.editGoods(good,managedClass.category)}">
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+        <br/>
+
+    </h:form>
+</h:body>
+</html>
