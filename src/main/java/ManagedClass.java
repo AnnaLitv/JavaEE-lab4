@@ -53,10 +53,10 @@ public class ManagedClass implements Serializable {
         this.category = category;
     }
 
-    public String editGoods(Goods good, Category category){
-        AbstractDAO<Integer,Category> cdao = new AbstractDAO<Integer, Category>();
-        Category cat = cdao.getByKey(Category.class,category.getIdcategory());
-        good.setCategoryByIdcategory(cat);
+    public String editGoods(Goods good){
+        //AbstractDAO<Integer,Category> cdao = new AbstractDAO<Integer, Category>();
+        //Category cat = cdao.getByKey(Category.class,category.getIdcategory());
+        //good.setCategoryByIdcategory(cat);
         gdao.update(good,good.getIdgoods());
         return null;
     }
